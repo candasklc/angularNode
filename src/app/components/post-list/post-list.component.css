@@ -2,3 +2,9 @@ mat-card{
     width: 80%;
     margin: auto;
 }
+mat-panel-title{
+    width: 400px;
+}
+.nothing-text{
+    text-align: center;
+}

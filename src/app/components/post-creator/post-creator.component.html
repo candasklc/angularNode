@@ -1,16 +1,18 @@
 <mat-card>
-  <form class="example-form">
-    <mat-form-field appearance="outline">
-      <mat-label>Leave a comment</mat-label>
-      <textarea
-        matInput
-        name="postText"
-        rows="6"
-        placeholder="Ex. It makes me feel..."
-        [(ngModel)]="enteredValue"
-        #postInput
-      ></textarea>
-    </mat-form-field>
-  </form>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Favorite food</mat-label>
+    <input matInput [(ngModel)]="enteredTitle" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Start typing...</mat-label>
+    <textarea
+      matInput
+      name="postText"
+      rows="6"
+      placeholder="Ex. It makes me feel..."
+      [(ngModel)]="enteredContent"
+      #postInput
+    ></textarea>
+  </mat-form-field>
   <button (click)="onAddPost()" mat-raised-button>Post</button>
 </mat-card>

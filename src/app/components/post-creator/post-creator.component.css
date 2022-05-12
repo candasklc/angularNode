@@ -1,6 +1,6 @@
 mat-card{
     width: 80%;
-    margin: auto;
+    margin: 1em auto;
     display: flex;
     flex-direction: column;
 }
