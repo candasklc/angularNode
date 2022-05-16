@@ -17,6 +17,10 @@
         >
       </mat-expansion-panel-header>
       <mat-card> {{ x.content }} </mat-card>
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Edit</button>
+        <button mat-button color="warn" (click)="nextStep()">Delete</button>
+      </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
   <p *ngIf="postsInList.length < 1" class="nothing-text mat-body-1">
