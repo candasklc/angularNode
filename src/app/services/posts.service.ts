@@ -9,11 +9,12 @@ import { HttpClient } from '@angular/common/http';
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
+  private url = 'http://localhost:3000/posts';
 
   constructor(private http: HttpClient) { }
 
   getPosts(): Post[] {
-    this.http.get<{ message: string, posts: Post[] }>('http://localhost:3000/posts')
+    this.http.get<{ message: string, posts: Post[] }>(this.url)
       .subscribe((data) => {
         this.posts = data.posts;
         this.postsUpdated.next([...this.posts]);
@@ -31,7 +32,12 @@ export class PostsService {
       title: title,
       content: content
     };
-    this.posts.push(newPost);
-    this.postsUpdated.next([...this.posts]);
+
+    this.http.post<{ message: string }>(this.url, newPost)
+      .subscribe((data) => {
+        console.log(data.message);
+        this.posts.push(newPost);
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 }
