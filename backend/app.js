@@ -1,6 +1,11 @@
 const express = require("express");
+const Post = require("./models/post");
+const mongoose = require("mongoose");
+const dbConnection = require("./config/db");
 
 const app = express();
+
+app.use(express.json()); // for parsing the request body.
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,8 +18,11 @@ app.use((req, res, next) => {
 });
 
 app.post("/posts", (req, res, next) => {
-  const post = req.body;
-  console.log(post);
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content,
+  });
+  post.save();
   return res.status(201).json({
     message: "Added successfully.",
   });
@@ -33,7 +41,6 @@ app.use("/posts", (req, res, next) => {
       content: "Second content.",
     },
   ];
-  console.log("Endpoint is hit.");
   return res.status(200).json({
     message: "Fetched successfully.",
     posts: posts,
