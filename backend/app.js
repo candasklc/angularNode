@@ -28,22 +28,23 @@ app.post("/posts", (req, res, next) => {
   });
 });
 
-app.use("/posts", (req, res, next) => {
-  const posts = [
-    {
-      id: "ajksgad78as290434",
-      title: "From the server.",
-      content: "First content.",
-    },
-    {
-      id: "asdasfgg290434",
-      title: "From the server.",
-      content: "Second content.",
-    },
-  ];
-  return res.status(200).json({
-    message: "Fetched successfully.",
-    posts: posts,
+app.get("/posts", (req, res, next) => {
+  Post.find().then((posts) => {
+    res.status(200).json({
+      message: "Fetched successfully.",
+      posts: posts,
+    });
+  });
+});
+
+app.delete("/posts/:id", (req, res, next) => {
+  const id = req.params.id;
+  Post.deleteOne({ _id: id }).then((result) => {
+    console.log(result);
+  });
+  res.status(200).json({
+    message: "Deleted successfully.",
+    id: id,
   });
 });
 

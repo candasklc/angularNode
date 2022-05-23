@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from 'src/app/interfaces/post';
-import { Observable, Subject } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -14,9 +14,19 @@ export class PostsService {
   constructor(private http: HttpClient) { }
 
   getPosts(): Post[] {
-    this.http.get<{ message: string, posts: Post[] }>(this.url)
-      .subscribe((data) => {
-        this.posts = data.posts;
+    this.http.get<{ message: string, posts: any }>(this.url)
+      // Modifying the received object. (_id -> id) 
+      .pipe(map((postData) => {
+        return postData.posts.map(post => {
+          return {
+            id: post._id,
+            title: post.title,
+            content: post.content
+          };
+        });
+      }))
+      .subscribe((editedPost) => {
+        this.posts = editedPost;
         this.postsUpdated.next([...this.posts]);
       });
     return [...this.posts];
@@ -38,6 +48,13 @@ export class PostsService {
         console.log(data.message);
         this.posts.push(newPost);
         this.postsUpdated.next([...this.posts]);
+      });
+  }
+
+  deletePost(id: string): void {
+    this.http.delete<{ message: string }>(`${this.url}/${id}`)
+      .subscribe((data) => {
+        console.log(data);
       });
   }
 }
