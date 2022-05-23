@@ -40,11 +40,10 @@ app.get("/posts", (req, res, next) => {
 app.delete("/posts/:id", (req, res, next) => {
   const id = req.params.id;
   Post.deleteOne({ _id: id }).then((result) => {
-    console.log(result);
-  });
-  res.status(200).json({
-    message: "Deleted successfully.",
-    id: id,
+    res.status(200).json({
+      message: "Deleted successfully.",
+      id: id,
+    });
   });
 });
 
