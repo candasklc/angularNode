@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { PostCreatorComponent } from './components/post-creator/post-creator.component';
@@ -35,7 +36,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     MatCardModule,
     MatToolbarModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   exports: [
     PostCreatorComponent,
