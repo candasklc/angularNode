@@ -2,6 +2,7 @@ const express = require("express");
 const Post = require("./models/post");
 const mongoose = require("mongoose");
 const dbConnection = require("./config/db");
+const { createShorthandPropertyAssignment } = require("typescript");
 
 const app = express();
 
@@ -22,9 +23,12 @@ app.post("/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content,
   });
-  post.save();
-  return res.status(201).json({
-    message: "Added successfully.",
+  // Saving the object in the db, then getting the id of the object to use in the frontend
+  post.save().then((result) => {
+    return res.status(201).json({
+      message: "Added successfully.",
+      postId: result._id,
+    });
   });
 });
 
