@@ -2,7 +2,13 @@
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Title</mat-label>
-      <input matInput name="title" ngModel required #postTitle="ngModel" />
+      <input
+        matInput
+        name="title"
+        [ngModel]="post.title"
+        required
+        #postTitle="ngModel"
+      />
       <mat-error *ngIf="postTitle.invalid"
         >Please enter a valid post title.</mat-error
       >
@@ -15,7 +21,7 @@
         rows="4"
         placeholder="Ex. It makes me feel..."
         name="content"
-        ngModel
+        [ngModel]="post.content"
         required
         #postContent="ngModel"
       ></textarea>

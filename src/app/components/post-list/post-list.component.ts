@@ -3,6 +3,7 @@ import { MatAccordion } from '@angular/material/expansion';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -15,7 +16,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   public panelOpenState = false;
   public postsInList: Post[] = [];
 
-  constructor(public postsService: PostsService) { }
+  constructor(public postsService: PostsService, public router: Router) { }
 
   ngOnInit(): void {
     this.postsInList = this.postsService.getPosts();

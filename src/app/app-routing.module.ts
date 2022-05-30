@@ -7,7 +7,7 @@ import { PostCreatorComponent } from 'src/app/components/post-creator/post-creat
 const routes: Routes = [
   { path: '', component: PostListComponent },
   { path: 'create', component: PostCreatorComponent },
-  // {path: 'edit', component}
+  { path: 'edit/:postId', component: PostCreatorComponent }
 ];
 
 
