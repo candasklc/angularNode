@@ -36,8 +36,9 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
-  getPostById(id: string): Post {
-    return { ...this.posts.find(p => p.id === id) };
+  getPostById(id: string) {
+    return this.http.get<{ message: string, post: Post }>(`${this.url}/${id}`);
+
   }
 
   addPost(title: string, content: string): void {
@@ -54,6 +55,21 @@ export class PostsService {
         this.posts.push(newPost);
         this.postsUpdated.next([...this.posts]);
       });
+  }
+
+  updatePost(id: string, title: string, content: string) {
+    const post: Post = { id: id, title: title, content: content };
+    this.http.put<{ message: string }>(`${this.url}/${id}`, post)
+      .subscribe((data) => {
+        // copy the post array.
+        const updatedPosts = [...this.posts];
+        // search for the edited post.
+        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+        // replace the old post with the edited version.
+        updatedPosts[oldPostIndex] = post;
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
+      })
   }
 
   deletePost(id: string): void {

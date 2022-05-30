@@ -1,11 +1,11 @@
 <mat-card>
-  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <form (submit)="onAddOrSavePost(postForm)" #postForm="ngForm">
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Title</mat-label>
       <input
         matInput
         name="title"
-        [ngModel]="post.title"
+        [ngModel]="post?.title"
         required
         #postTitle="ngModel"
       />
@@ -21,12 +21,15 @@
         rows="4"
         placeholder="Ex. It makes me feel..."
         name="content"
-        [ngModel]="post.content"
+        [ngModel]="post?.content"
         required
         #postContent="ngModel"
       ></textarea>
       <mat-error *ngIf="postContent.invalid">Empty post? Seriously?</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button>Post</button>
+    <button type="submit" mat-raised-button>
+      <span *ngIf="isCreateMode">Post</span>
+      <span *ngIf="isEditMode">Save</span>
+    </button>
   </form>
 </mat-card>
