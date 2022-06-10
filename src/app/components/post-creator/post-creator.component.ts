@@ -17,7 +17,7 @@ export class PostCreatorComponent implements OnInit {
   public isEditMode: boolean;
   private postId = '';
 
-  constructor(public postsService: PostsService, public route: ActivatedRoute, private router: Router) { }
+  constructor(public postsService: PostsService, public route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Checking id the url has post id and depending on this, change the mode from create to edit.
@@ -47,7 +47,6 @@ export class PostCreatorComponent implements OnInit {
       form.resetForm();
     } else if (this.isEditMode) {
       this.postsService.updatePost(this.postId, form.value.title, form.value.content);
-      this.router.navigate(['/']);
     }
   }
 }
