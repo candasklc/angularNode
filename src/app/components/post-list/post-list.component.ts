@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class PostListComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   private postsSub: Subscription;
+  public isLoading = true;
   public panelOpenState = false;
   public postsInList: Post[] = [];
 
@@ -23,6 +24,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
         this.postsInList = posts;
+        this.isLoading = false;
       });
   }
 

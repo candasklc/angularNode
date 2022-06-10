@@ -1,31 +1,36 @@
 <mat-card>
-  <div class="example-action-buttons">
-    <button mat-button (click)="accordion.openAll()">Expand All</button>
-    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div *ngIf="!isLoading">
+    <div>
+      <button mat-button (click)="accordion.openAll()">Expand All</button>
+      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    </div>
+    <mat-accordion multi>
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+        *ngFor="let x of postsInList"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ x.title }}</mat-panel-title>
+          <mat-panel-description
+            >Click to
+            {{ panelOpenState ? "close" : "open" }}</mat-panel-description
+          >
+        </mat-expansion-panel-header>
+        <mat-card> {{ x.content }} </mat-card>
+        <mat-action-row>
+          <button mat-button color="primary" [routerLink]="['/edit', x.id]">
+            Edit
+          </button>
+          <button mat-button color="warn" (click)="onDelete(x.id)">
+            Delete
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p *ngIf="postsInList.length < 1" class="nothing-text mat-body-1">
+      There is nothing posted yet.
+    </p>
   </div>
-  <mat-accordion multi>
-    <mat-expansion-panel
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
-      *ngFor="let x of postsInList"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ x.title }}</mat-panel-title>
-        <mat-panel-description
-          >Click to
-          {{ panelOpenState ? "close" : "open" }}</mat-panel-description
-        >
-      </mat-expansion-panel-header>
-      <mat-card> {{ x.content }} </mat-card>
-      <mat-action-row>
-        <button mat-button color="primary" [routerLink]="['/edit', x.id]">
-          Edit
-        </button>
-        <button mat-button color="warn" (click)="onDelete(x.id)">Delete</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <p *ngIf="postsInList.length < 1" class="nothing-text mat-body-1">
-    There is nothing posted yet.
-  </p>
 </mat-card>
