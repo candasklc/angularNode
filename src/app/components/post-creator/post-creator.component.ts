@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from 'src/app/interfaces/post';
 import { PostsService } from 'src/app/services/posts.service';
 
@@ -14,6 +14,7 @@ export class PostCreatorComponent implements OnInit {
   public enteredContent = '';
   public post: Post;
   public isLoading = false;
+  public form: FormGroup;
   public isCreateMode: boolean;
   public isEditMode: boolean;
   private postId = '';
@@ -21,6 +22,14 @@ export class PostCreatorComponent implements OnInit {
   constructor(public postsService: PostsService, public route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      title: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      content: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(1)]
+      })
+    });
     // Checking id the url has post id and depending on this, change the mode from create to edit.
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('postId')) {
@@ -39,18 +48,22 @@ export class PostCreatorComponent implements OnInit {
           content: '',
         }
       }
+      this.form.setValue({
+        title: this.post.title,
+        content: this.post.content
+      });
     });
   }
-  public onAddOrSavePost(form: NgForm): void {
-    if (form.invalid) {
+  public onAddOrSavePost(): void {
+    if (this.form.invalid) {
       return;
     }
     this.isEditMode = true;
     if (this.isCreateMode) {
-      this.postsService.addPost(form.value.title, form.value.content);
-      form.resetForm();
+      this.postsService.addPost(this.form.value.title, this.form.value.content);
+      this.form.reset();
     } else if (this.isEditMode) {
-      this.postsService.updatePost(this.postId, form.value.title, form.value.content);
+      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
     }
   }
 }

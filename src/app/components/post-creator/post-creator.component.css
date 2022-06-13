@@ -10,6 +10,13 @@ mat-spinner{
 mat-form-field{
     width: 100%;
 }
+.btn-container{
+    display: flex;
+    flex-direction: column;
+}
+input[type="file"]{
+    visibility: hidden;
+}
 button{
     width: 200px;
     align-self: flex-end;

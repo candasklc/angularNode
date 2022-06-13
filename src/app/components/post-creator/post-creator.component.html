@@ -1,20 +1,10 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form
-    (submit)="onAddOrSavePost(postForm)"
-    #postForm="ngForm"
-    *ngIf="!isLoading"
-  >
+  <form [formGroup]="form" (submit)="onAddOrSavePost()" *ngIf="!isLoading">
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Title</mat-label>
-      <input
-        matInput
-        name="title"
-        [ngModel]="post?.title"
-        required
-        #postTitle="ngModel"
-      />
-      <mat-error *ngIf="postTitle.invalid"
+      <input matInput type="text" formControlName="title" placeholder="Title" />
+      <mat-error *ngIf="form.get('title').invalid"
         >Please enter a valid post title.</mat-error
       >
     </mat-form-field>
@@ -22,19 +12,23 @@
       <mat-label>Start typing...</mat-label>
       <textarea
         matInput
-        name="postText"
+        formControlName="content"
         rows="4"
         placeholder="Ex. It makes me feel..."
-        name="content"
-        [ngModel]="post?.content"
-        required
-        #postContent="ngModel"
       ></textarea>
-      <mat-error *ngIf="postContent.invalid">Empty post? Seriously?</mat-error>
+      <mat-error *ngIf="form.get('content').invalid"
+        >Empty post? Seriously?</mat-error
+      >
     </mat-form-field>
-    <button type="submit" mat-raised-button>
-      <span *ngIf="isCreateMode">Post</span>
-      <span *ngIf="isEditMode">Save</span>
-    </button>
+    <div class="btn-container">
+      <button type="button" mat-raised-button (click)="fileUploader.click()">
+        Image upload
+      </button>
+      <input type="file" #fileUploader />
+      <button type="submit" mat-raised-button>
+        <span *ngIf="isCreateMode">Post</span>
+        <span *ngIf="isEditMode">Save</span>
+      </button>
+    </div>
   </form>
 </mat-card>
