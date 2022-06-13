@@ -18,6 +18,8 @@ export class PostCreatorComponent implements OnInit {
   public isCreateMode: boolean;
   public isEditMode: boolean;
   private postId = '';
+  public imagePreview: string;
+
 
   constructor(public postsService: PostsService, public route: ActivatedRoute) { }
 
@@ -28,6 +30,9 @@ export class PostCreatorComponent implements OnInit {
       }),
       content: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(1)]
+      }),
+      image: new FormControl(null, {
+        validators: []
       })
     });
     // Checking id the url has post id and depending on this, change the mode from create to edit.
@@ -38,6 +43,10 @@ export class PostCreatorComponent implements OnInit {
         this.isLoading = true;
         this.postsService.getPostById(this.postId).subscribe(data => {
           this.post = data.post;
+          this.form.patchValue({
+            title: this.post.title,
+            content: this.post.content
+          });
           this.isLoading = false;
         });
       } else {
@@ -46,13 +55,19 @@ export class PostCreatorComponent implements OnInit {
           id: '',
           title: '',
           content: '',
-        }
+        };
       }
-      this.form.setValue({
-        title: this.post.title,
-        content: this.post.content
-      });
     });
+  }
+  public onImageChanged(event: Event): void {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image: file });
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = (reader.result as string);
+    };
+    reader.readAsDataURL(file);
   }
   public onAddOrSavePost(): void {
     if (this.form.invalid) {

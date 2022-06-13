@@ -12,10 +12,13 @@ mat-form-field{
 }
 .btn-container{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 input[type="file"]{
     visibility: hidden;
+}
+.image-upload-container{
+    background-color: tomato;
 }
 button{
     width: 200px;

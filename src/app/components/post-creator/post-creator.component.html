@@ -21,10 +21,14 @@
       >
     </mat-form-field>
     <div class="btn-container">
-      <button type="button" mat-raised-button (click)="fileUploader.click()">
-        Image upload
-      </button>
-      <input type="file" #fileUploader />
+      <div class="image-upload-container">
+        <button type="button" mat-raised-button (click)="fileUploader.click()">
+          Image upload
+        </button>
+        <input type="file" #fileUploader (change)="onImageChanged($event)" />
+        <img [src]="imagePreview" [alt]="form.title" />
+      </div>
+
       <button type="submit" mat-raised-button>
         <span *ngIf="isCreateMode">Post</span>
         <span *ngIf="isEditMode">Save</span>
