@@ -26,7 +26,12 @@
           Image upload
         </button>
         <input type="file" #fileUploader (change)="onImageChanged($event)" />
-        <img [src]="imagePreview" [alt]="form.title" />
+        <img
+          class="image-preview"
+          [src]="imagePreview"
+          [alt]="form.title"
+          *ngIf="imagePreview && imagePreview !== ''"
+        />
       </div>
 
       <button type="submit" mat-raised-button>

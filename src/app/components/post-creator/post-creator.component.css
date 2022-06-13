@@ -18,9 +18,14 @@ input[type="file"]{
     visibility: hidden;
 }
 .image-upload-container{
-    background-color: tomato;
+    max-width: 60%;
+    display: flex;
+}
+.image-preview{
+    max-width: 200px;
+    max-height: 200px;
 }
 button{
     width: 200px;
-    align-self: flex-end;
+    align-self: flex-start;
 }
