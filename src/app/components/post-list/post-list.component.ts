@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.css']
+  styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) accordion: MatAccordion;
@@ -17,11 +17,12 @@ export class PostListComponent implements OnInit, OnDestroy {
   public panelOpenState = false;
   public postsInList: Post[] = [];
 
-  constructor(public postsService: PostsService, public router: Router) { }
+  constructor(public postsService: PostsService, public router: Router) {}
 
   ngOnInit(): void {
     this.postsInList = this.postsService.getPosts();
-    this.postsSub = this.postsService.getPostUpdateListener()
+    this.postsSub = this.postsService
+      .getPostUpdateListener()
       .subscribe((posts: Post[]) => {
         this.postsInList = posts;
         this.isLoading = false;

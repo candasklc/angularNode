@@ -1,13 +1,13 @@
-mat-toolbar{
-    display: flex;
-    justify-content: space-between;
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
 }
-.title{
-    cursor: pointer;
+.title {
+  cursor: pointer;
 }
 
-.button-container{
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
 }

@@ -39,14 +39,10 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     MatExpansionModule,
     HttpClientModule,
     MatListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
-  exports: [
-    PostCreatorComponent,
-    HeaderComponent,
-    PostListComponent,
-  ],
+  exports: [PostCreatorComponent, HeaderComponent, PostListComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,31 +1,31 @@
-mat-card{
-    width: 80%;
-    margin: 1em auto;
-    display: flex;
-    flex-direction: column;
+mat-card {
+  width: 80%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
 }
-mat-spinner{
-    margin: auto;
+mat-spinner {
+  margin: auto;
 }
-mat-form-field{
-    width: 100%;
+mat-form-field {
+  width: 100%;
 }
-.btn-container{
-    display: flex;
-    justify-content: space-between;
+.btn-container {
+  display: flex;
+  justify-content: space-between;
 }
-input[type="file"]{
-    visibility: hidden;
+input[type="file"] {
+  visibility: hidden;
 }
-.image-upload-container{
-    max-width: 60%;
-    display: flex;
+.image-upload-container {
+  max-width: 60%;
+  display: flex;
 }
-.image-preview{
-    max-width: 200px;
-    max-height: 200px;
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
 }
-button{
-    width: 200px;
-    align-self: flex-start;
+button {
+  width: 200px;
+  align-self: flex-start;
 }

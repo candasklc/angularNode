@@ -7,7 +7,7 @@ import { PostsService } from 'src/app/services/posts.service';
 @Component({
   selector: 'app-post-creator',
   templateUrl: './post-creator.component.html',
-  styleUrls: ['./post-creator.component.css']
+  styleUrls: ['./post-creator.component.css'],
 })
 export class PostCreatorComponent implements OnInit {
   public enteredTitle = '';
@@ -20,20 +20,22 @@ export class PostCreatorComponent implements OnInit {
   private postId = '';
   public imagePreview: string;
 
-
-  constructor(public postsService: PostsService, public route: ActivatedRoute) { }
+  constructor(
+    public postsService: PostsService,
+    public route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
       title: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required, Validators.minLength(3)],
       }),
       content: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(1)]
+        validators: [Validators.required, Validators.minLength(1)],
       }),
       image: new FormControl(null, {
-        validators: []
-      })
+        validators: [],
+      }),
     });
     // Checking id the url has post id and depending on this, change the mode from create to edit.
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -41,11 +43,11 @@ export class PostCreatorComponent implements OnInit {
         this.isEditMode = true;
         this.postId = paramMap.get('postId');
         this.isLoading = true;
-        this.postsService.getPostById(this.postId).subscribe(data => {
+        this.postsService.getPostById(this.postId).subscribe((data) => {
           this.post = data.post;
           this.form.patchValue({
             title: this.post.title,
-            content: this.post.content
+            content: this.post.content,
           });
           this.isLoading = false;
         });
@@ -65,7 +67,7 @@ export class PostCreatorComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = (reader.result as string);
+      this.imagePreview = reader.result as string;
     };
     reader.readAsDataURL(file);
   }
@@ -78,7 +80,11 @@ export class PostCreatorComponent implements OnInit {
       this.postsService.addPost(this.form.value.title, this.form.value.content);
       this.form.reset();
     } else if (this.isEditMode) {
-      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
+      this.postsService.updatePost(
+        this.postId,
+        this.form.value.title,
+        this.form.value.content
+      );
     }
   }
 }

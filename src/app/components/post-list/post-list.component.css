@@ -1,13 +1,13 @@
-mat-card{
-    width: 80%;
-    margin: 1em auto;
+mat-card {
+  width: 80%;
+  margin: 1em auto;
 }
-mat-spinner{
-    margin: auto;
+mat-spinner {
+  margin: auto;
 }
-mat-panel-title{
-    width: 400px;
+mat-panel-title {
+  width: 400px;
 }
-.nothing-text{
-    text-align: center;
+.nothing-text {
+  text-align: center;
 }
